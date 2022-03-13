@@ -1,13 +1,21 @@
 # UCCNC - Screenset 2046
-Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000. The screenset might actually work for you well on other machines too.
+Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000...
+The screenset might actually work for you well on other machines too.
 
+<img src="Screenshot.png" />
+init version v0.02
 
 ## Why
 Because the native screenset sucks (https://shop.stepcraft-systems.com/uccnc-control-software-oem-package). The default Screenset just does not follow any UI standarts other than that buttons looks like old school buttons, it is not optimized for touch screens whatsoever most importantly the layout and UI is so clumsy that forces us to stop and think, while we should act already.
 Don't take me wrong the UCCNC program it self is a solid program that does its work well, but it must be comfortably controlable too or the bits will break or my brain explodes.
 
-The Stepcraft_2046 screenset is equal in fuction to what the Stepcraft_M700 in my case is, but redesigned in a way that is more responsive on touch screens, way more readable, uses common UX logic and in general looks and feels like a contemporary UI.
-Sure not all parts of the program are redesigned, only those that we come in touch the most. Specificaly RUN, TOOLPATH and JOG screen.
+The Stepcraft_2046 screenset is equal in function to what the Stepcraft_M700 in my case is, but redesigned in a way that is more responsive on touch screens, way more readable, uses common UX logic and in general it is cleaner.
+Sure not all parts of the program are redesigned, only those that we come in touch the most. 
+
+- RUN
+- TOOLPATH 
+- JOG screen
+
 All the rest stays the same though some icons might be replaced by the new set here and there too.
 The screen looks best on something that has 16:9 resolution, at least 1300px wide or more. 
 
@@ -16,12 +24,12 @@ Testing
 
 ## Instalation
 The package follows the default UCCNC folder paths. Unpack the files to coresponding folders.
-
+```
 C:\UCCNC\Flashscreens\BMP\Stepcraft_2046
 C:\UCCNC\Profiles\Stepcraft_2046.pro
 C:\UCCNC\Profiles\Macro_Stepcraft_2046
 C:\UCCNC\Screens\Stepcraft_2046.ssf
-
+```
 The macros are the default macros that comes with the Stepcraft M_700 Screenset. No change there.
 
 The Screenset uses Calibri font along the default Arial. If you are on old Windblows you can download the font for free from https://dl.freefontsfamily.com/download/Calibri-Font/ 

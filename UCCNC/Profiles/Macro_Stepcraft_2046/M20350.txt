@@ -1,0 +1,69 @@
+// Macro for Accurate Homing by Hugo Neil
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){
+exec.AddStatusmessage("First homing routine...");
+AS3.Setfield(1000, 6); 
+AS3.Validatefield(6);
+AS3.Setfield(500, 15); 
+AS3.Validatefield(15);
+AS3.Setfield(1000, 21); 
+AS3.Validatefield(21);
+AS3.Setfield(500, 30); 
+AS3.Validatefield(30);
+AS3.Setfield(1000, 36); 
+AS3.Validatefield(36);
+AS3.Setfield(500, 45); 
+AS3.Validatefield(45);
+exec.Wait(100);
+exec.Callbutton(168);
+exec.Wait(200); 
+exec.Code("G28.1");
+while(exec.IsMoving()){}
+exec.Wait(100);
+exec.Code("G91 G01 X2 Y-2 Z-2 F400");
+exec.Code("G90");
+while(exec.IsMoving()){}
+exec.AddStatusmessage("Second homing routine...");
+exec.Wait(100);
+AS3.Setfield(200, 6); 
+AS3.Validatefield(6);
+AS3.Setfield(150, 15); 
+AS3.Validatefield(15);
+AS3.Setfield(200, 21); 
+AS3.Validatefield(21);
+AS3.Setfield(150, 30); 
+AS3.Validatefield(30);
+AS3.Setfield(200, 36); 
+AS3.Validatefield(36);
+AS3.Setfield(150, 45); 
+AS3.Validatefield(45);
+exec.Wait(100);
+exec.Callbutton(168);
+exec.Wait(200); 
+exec.Code("G28.1");
+while(exec.IsMoving()){}
+exec.Wait(100);
+AS3.Setfield(1000, 6); 
+AS3.Validatefield(6);
+AS3.Setfield(500, 15); 
+AS3.Validatefield(15);
+AS3.Setfield(1000, 21); 
+AS3.Validatefield(21);
+AS3.Setfield(500, 30); 
+AS3.Validatefield(30);
+AS3.Setfield(1000, 36); 
+AS3.Validatefield(36);
+AS3.Setfield(500, 45); 
+AS3.Validatefield(45);
+exec.Wait(100);
+exec.Callbutton(168);
+exec.AddStatusmessage("Homing finished.");
+exec.Wait(100);
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  Console.Beep();
+  exec.AddStatusmessage("Macro was interrupted by user!");
+  return;
+}
+}

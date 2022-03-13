@@ -1,0 +1,12 @@
+// Macros for Enclosure Safety by Hugo Neil
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){
+while(loop){
+if (AS3.Getcheckboxstate(500))
+{
+if (AS3.GetLED(15)){
+exec.Callbutton(144);
+MessageBox.Show(exec.mainform,"Enclosure is open.","Warning!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+}}
+Thread.Sleep(50);
+}}

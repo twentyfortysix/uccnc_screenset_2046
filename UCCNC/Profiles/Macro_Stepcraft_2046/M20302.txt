@@ -1,0 +1,12 @@
+// ATC State Check
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){
+while(loop){
+if(!exec.GetLED(14)){
+AS3.Switchbutton(false, 20206);
+}
+if(exec.GetLED(14)){
+AS3.Switchbutton(true, 20206);
+}
+}
+}

@@ -1,0 +1,55 @@
+// Macros for use the 3D probe with Stepcraft by Hugo Neil
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){}
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("This macro will move the probe in the displayed direction. After finding an outline, it will zero the upper side of the material.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Move the probe and execute the macro again");
+exec.Stop();
+return;
+}
+}
+exec.Code("M214");
+exec.Wait(200); 
+double axismovpositive = 100; 		//Max Axis + Movement
+double axismovnegative = -100; 		//Max Axis - Movement
+double Feedrate = 250; 				//Feedrate for probing 
+double FastFeedrate = 1500;			//Feedrate for moving the probe
+double newvalzero = 0; 				//The new Z DRO value after probing
+double newvalpositive = 1; 			//The new X DRO value after probing (ball radius)
+double newvalnegative = -1; 		//The new Y DRO value after probing (ball radius)
+double Yorigin = exec.GetYmachpos();
+// Start probing Y Axis
+exec.Code("G31 Y" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+exec.Wait(200);  											//Safety wait for the UC100 syncronisation 
+exec.ChangeaxisDROvalue(1, newvalpositive.ToString()); 		//Change the DRO value 
+exec.Wait(200);  											//Safety wait for the UC100 syncronisation
+double YAxistemp = exec.GetYmachpos();
+double YAxisfinal = YAxistemp + newvalnegative;
+exec.Code("G01 G53 Y" + Yorigin + "F" + FastFeedrate); 		//Retract the axis 
+exec.Wait(200);
+while(exec.IsMoving()){} 									//Wait while there is motion 
+
+if(!exec.Ismacrostopped())
+{
+exec.Wait(200); 
+MessageBox.Show("Probed machine coordinates of the edge: " + YAxisfinal);
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user or the probe is touching the material while positioning!");
+}
+}

@@ -1,0 +1,42 @@
+// Position Macro with dowel offset support
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+double offsetX = 0; //  Offset Value + hald diameter of Dowel
+double offsetY = 0;
+double zeroaxis = 0;
+exec.Stopspin();
+int originalmodalmode = exec.actualmodal; // remember the modal mode
+while(exec.IsMoving()){}
+
+exec.Code("G00 G53 Z-10");
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G00 G53 X" + offsetX + " Y" + offsetY);
+while(exec.IsMoving()){}
+exec.Wait(200);
+
+exec.ChangeaxisDROvalue(0,zeroaxis.ToString());
+exec.Wait(200);
+exec.ChangeaxisDROvalue(1,zeroaxis.ToString());
+exec.Wait(200);
+
+exec.Code("G00 G52 X" + 0 + " Y" + 0);
+while(exec.IsMoving()){}
+exec.Wait(200);
+
+exec.Code("G" + originalmodalmode); // Set system back to the original distance mode
+return;
+
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  Console.Beep();
+  exec.AddStatusmessage("Macro was interrupted by user!");
+  return;
+}
+}

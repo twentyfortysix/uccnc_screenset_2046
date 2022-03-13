@@ -1,0 +1,4 @@
+//This is the destructor macro which executes once, one the application close event
+// Save ATC Tool
+string tool = AS3.Getfield(897);
+exec.Writekey("Toolchange","Toolnumber", tool);

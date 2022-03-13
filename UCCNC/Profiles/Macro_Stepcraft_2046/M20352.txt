@@ -1,0 +1,21 @@
+// Macro for Moving Axis by Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+string Movement = exec.TextQuestion("Enter the distance to move the Y axis from the current position (incremental movement).");
+
+exec.Code("G91 G01 Y"+Movement+"F600");
+exec.Code("G90");
+while(exec.IsMoving()){}
+exec.Wait(200);
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  Console.Beep();
+  exec.AddStatusmessage("Macro was interrupted by user!");
+  return;
+}
+}

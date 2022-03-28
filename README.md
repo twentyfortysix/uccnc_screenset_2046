@@ -1,6 +1,7 @@
 # UCCNC - Screenset 2046
 Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000. The screenset might actually work for you well on other machines too.
 
+![v.0.2](Sceenshot.png)
 
 ## Why
 Because the native screenset sucks (https://shop.stepcraft-systems.com/uccnc-control-software-oem-package). The default Screenset just does not follow any UI standarts other than that buttons looks like old school buttons, it is not optimized for touch screens whatsoever most importantly the layout and UI is so clumsy that forces us to stop and think, while we should act already.

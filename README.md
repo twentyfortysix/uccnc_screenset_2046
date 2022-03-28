@@ -77,11 +77,15 @@ Showzeromark=True
 Zeromarkcolor=-16711681
 ```
 
+
 ## Try and run
 Run the UCCNC program, go to Configuration > Profiles. Select "Stepcraft_2046" profile, click "load profile". The program will quit and restart with the Stepcraft_2046 profile ready to be used & tested.
 
 ## Testing
 Although the profile has been tested and looks good, you never know. Be carefull and let me know if there is anything that should be fixed, be it wrong event mappings or design flaws. Fire up github issue and be as desriptive as you can, ideally include screenshots with description.
+
+## Goodies
+If you need to create your own buttons check out UCCNC/Flashscreen/BMP/Stepcraft_2046/ folder, you gonna find there bunch of `_empty_...png` spare clean buttons.
 
 ## If you like it so much
 You can make the profile as your default by rewriting your UCCNC shortcut to something like - open short cut properties and set target to:

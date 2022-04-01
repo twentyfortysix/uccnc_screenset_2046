@@ -3,7 +3,7 @@ Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcra
 The screenset might actually work for you well on other machines too.
 
 <img src="Screenshot.jpg" />
-init version v0.03, preview
+version v0.03
 
 ## Why
 Because the native screenset is a mess.

@@ -1,6 +1,6 @@
 # UCCNC - Screenset 2046
 Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000...
-The screenset might actually work for you well on other machines too.
+The screenset might actually work for you well on other machines too, at least with UC100 controller.
 
 <img src="Screenshot.jpg" />
 version v0.03
@@ -84,6 +84,11 @@ Run the UCCNC program, go to Configuration > Profiles. Select "Stepcraft_2046" p
 ## Testing
 Although the profile has been tested and looks good, you never know. Be carefull and let me know if there is anything that should be fixed, be it wrong event mappings or design flaws. Fire up github issue and be as desriptive as you can, ideally include screenshots with description.
 
+## what if I need to update the Screenset for my and others needs?
+In that case make the appropriate changes and make a pull request and will make the cahnge available to others as well.
+Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3731 or somehow ;)
+For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!
+ 
 ## Goodies
 If you need to create your own buttons check out UCCNC/Flashscreen/BMP/Stepcraft_2046/ folder, you gonna find there bunch of `_empty_...png` spare clean buttons.
 

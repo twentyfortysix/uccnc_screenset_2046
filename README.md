@@ -45,7 +45,7 @@ B. if you want to keep your macros
 - Edit C:\UCCNC\Profiles\Default.pro (your profile file may vary) and change the mainscreenfilename entry as follows:
 mainscreenfilename=Stepcraft_2046
 
-### font
+### Font
 The Screenset uses Calibri font along the default Arial. If you are on old Windblows you can download the font for free from https://dl.freefontsfamily.com/download/Calibri-Font/ 
 
 ### 3D view colors
@@ -84,7 +84,7 @@ Run the UCCNC program, go to Configuration > Profiles. Select "Stepcraft_2046" p
 ## Testing
 Although the profile has been tested and looks good, you never know. Be carefull and let me know if there is anything that should be fixed, be it wrong event mappings or design flaws. Fire up github issue and be as desriptive as you can, ideally include screenshots with description.
 
-## what if I need to update the Screenset for my and others needs?
+## I need to update the Screenset for my and others needs
 In that case make the appropriate changes and make a pull request and will make the cahnge available to others as well.
 Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3731 or somehow ;)
 For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!

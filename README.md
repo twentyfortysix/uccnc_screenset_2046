@@ -47,7 +47,7 @@ B. if you want to keep your macros
 mainscreenfilename=Stepcraft_2046
 
 ### Font
-The Screenset uses Calibri font along the default Arial. If you are on old Windblows you can download the font for free from https://dl.freefontsfamily.com/download/Calibri-Font/ 
+The Screenset uses Calibri font along the default Arial. If you are on old Windblows you can download the font for free from https://dl.freefontsfamily.com/download/Calibri-Font/, latest Windblows has includes it by default.
 
 ### 3D view colors
 The 3D view no longer has black color. It is tweaked a bit 

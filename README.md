@@ -2,8 +2,9 @@
 Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000...
 The screenset might actually work for you well on other machines too, at least with UC100 controller.
 
-<img src="Screenshot.jpg" />
-version v0.03
+<img src="run.jpg" />
+<img src="toolpath.jpg" />
+version v0.04
 
 ## Why
 Because the native screenset is a mess.

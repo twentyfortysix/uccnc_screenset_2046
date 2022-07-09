@@ -23,7 +23,7 @@ All the rest stays the same though some icons might be replaced by the new set h
 The screen looks best on something that has 16:9 resolution, at least 1300px wide or more. 
 
 ## Status
-Testing
+In production for a while already
 
 ## Instalation/s
 here are two ways how to. Choose what fits your personal style:

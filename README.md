@@ -7,7 +7,7 @@ The screenset might actually work for you well on other machines too, at least w
 version v0.04
 
 ## Why
-Because the native screenset is a mess.
+Because the native UI (screenset) is a mess.
 
 The default Screenset just does not follow any UI standarts other than that buttons look like buttons, it is not optimized for touch screens whatsoever most importantly the layout and UI is so clumsy that forces us to stop and think, while we should act already.
 Don't take me wrong the UCCNC program it self is a solid program that does its work well, but it must be comfortably controlable too or the bits will break or my brain explodes.

@@ -84,6 +84,7 @@ Run the UCCNC program, go to Configuration > Profiles. Select "Stepcraft_2046" p
 
 ## Testing
 Although the profile has been tested and looks good, you never know. Be carefull and let me know if there is anything that should be fixed, be it wrong event mappings or design flaws. Fire up github issue and be as desriptive as you can, ideally include screenshots with description.
+(Well nobody complained so far)
 
 ## I need to update the Screenset for my and others needs
 In that case make the appropriate changes and make a pull request and will make the cahnge available to others as well.

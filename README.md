@@ -92,8 +92,8 @@ Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3
 For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!
  
 ## Adjust for my controler
-If you the screenset dows not work for you, meaning once you try it it returnn white screen of death or something that stops the program to load you need to update the Stepcraft_2046.ssf file in Screens.
-The file contains IF statements where the UI elements are defined. The IF in particular checks your type of machine and so what you need to do is to copy paste the whole IF block and replace the name of controller for the one you have.
+If you the screenset do's not work for you, meaning once it stops the program to load you need to update the Stepcraft_2046.ssf file in "Screens" folder.
+The file contains IF statements where the UI elements are defined. The IF in particular checks your type of machine and so what you need to do is to copy paste the whole IF block and replace the name of controler for the one you have.
 Like in case of "UC300ETH_5LPT" to this
  if (mainform.userselecteddevtype == UC100.DeviceType.UC300ETH_5LPT || mainform.userselecteddevtype == UC100.DeviceType.Demo_UC300ETH_5LPT){
  ....
@@ -106,6 +106,8 @@ UC300ETH_M44
 UC300ETH_M45
 UC300ETH_UB1
 ..
+If it loads you are all ok, if you do a mistake like typo and such it will not load.
+Once it loads it should work as any other screenset. In worst scenario there might be a button/function your controler does not support.
 
 ## Goodies
 If you need to create your own buttons check out UCCNC/Flashscreen/BMP/Stepcraft_2046/ folder, you gonna find there bunch of `_empty_...png` spare clean buttons.

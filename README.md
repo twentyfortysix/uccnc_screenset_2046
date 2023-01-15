@@ -92,7 +92,7 @@ Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3
 For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!
  
 ## Adjust for my controler
-If you the screenset does not work for you, meaning once it stops the program to load you need to update the Stepcraft_2046.ssf file in "Screens" folder.
+If the screenset does not work for you, meaning once it stops the program to load you need to update the Stepcraft_2046.ssf file in "Screens" folder.
 The file contains IF statements where the UI elements are defined. The IF in particular checks your type of machine and so what you need to do is to copy paste the whole IF block and replace the name of controler for the one you have.
 Like in case of "UC300ETH_5LPT" to this
 

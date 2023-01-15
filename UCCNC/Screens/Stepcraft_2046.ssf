@@ -3365,8 +3365,8 @@ mainform.exec.Loadmainscreen = false;
 //ENDREGION UC100
 
 
-//REGION UC400ETH
-if (mainform.userselecteddevtype == UC100.DeviceType.UC400ETH || mainform.userselecteddevtype == UC100.DeviceType.Demo_UC400ETH)
+//REGION UC300ETH_5LPT
+if (mainform.userselecteddevtype == UC100.DeviceType.UC300ETH_5LPT || mainform.userselecteddevtype == UC100.DeviceType.Demo_UC300ETH_5LPT)
 {
 UCCNC.AS3interfaceClass AS3jog = mainform.AS3jog;
 UCCNC.AS3interfaceClass AS3 = mainform.AS3;
@@ -6398,7 +6398,7 @@ AS3.Updatecomboboxselection(0,11);
 //Add comboboxes to jog screen
 //Add codeviews to main screen
 AS3.Addcodeview("", "Arial", "left", 16, -1, 44, 370, 393, 154, 2);
-AS3.Addcodeview("", "Arial", "left", 16, -1, 670, 274, 206, `54, 45);
+AS3.Addcodeview("", "Arial", "left", 16, -1, 670, 274, 206, 54, 45);
 //Add codeviews to jog screen
 //Add colorpickers to main screen
 AS3.Addcolorpick(538, 73, 26, 26, 1, 10);
@@ -6694,7 +6694,7 @@ mainform.exec.Loadimages = false;
 mainform.exec.Loadjogscreen = false;
 mainform.exec.Loadmainscreen = false;
 }
-//ENDREGION UC400ETH
+//ENDREGION UC300ETH_5LPT
 
 
 

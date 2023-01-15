@@ -1,6 +1,6 @@
 # UCCNC - Screenset 2046
 Screenset for UCCNC https://cncdrive.com/UCCNC.html specifically for the Stepcraft https://www.stepcraft.us/ machines like M500, M700, M1000...
-The screenset might actually work for you well on other machines too, at least with UC100 controller.
+The screenset might actually work for you well on other machines too, at least with UC100 controller or UC300ETH_5LPT. If you have any other controler follow the instructions bellow "Adjust for my controler".
 
 <img src="run.jpg" />
 <img src="toolpath.jpg" />
@@ -91,6 +91,22 @@ In that case make the appropriate changes and make a pull request and will make 
 Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3731 or somehow ;)
 For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!
  
+## Adjust for my controler
+If you the screenset dows not work for you, meaning once you try it it returnn white screen of death or something that stops the program to load you need to update the Stepcraft_2046.ssf file in Screens.
+The file contains IF statements where the UI elements are defined. The IF in particular checks your type of machine and so what you need to do is to copy paste the whole IF block and replace the name of controller for the one you have.
+Like in case of "UC300ETH_5LPT" to this
+ if (mainform.userselecteddevtype == UC100.DeviceType.UC300ETH_5LPT || mainform.userselecteddevtype == UC100.DeviceType.Demo_UC300ETH_5LPT){
+ ....
+ }
+ Keep everything inside of the {} as is. You can add whole new block on the end, or just change the names in the if(...).
+ The Controllers might be:
+UC300ETH_5LPT
+UC300ETH_5441
+UC300ETH_M44
+UC300ETH_M45
+UC300ETH_UB1
+..
+
 ## Goodies
 If you need to create your own buttons check out UCCNC/Flashscreen/BMP/Stepcraft_2046/ folder, you gonna find there bunch of `_empty_...png` spare clean buttons.
 

@@ -36,7 +36,7 @@ The screen looks best on something that has 16:9 resolution, at least 1300px wid
 - UC300ETH_UB1
 - AXBB
 
-Definition for controllers with :dancer: are tested on real controller. The rest schold just work too.
+Definition for controllers with :dancer: are tested on real controller. The rest should just work too.
 
 ## Status
 In production for a while already

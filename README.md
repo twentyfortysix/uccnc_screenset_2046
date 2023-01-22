@@ -24,8 +24,8 @@ The screen looks best on something that has 16:9 resolution, at least 1300px wid
 
 ## Supported controllers
 
-- **UC100**
-- **UC300_5LPT**
+- UC100 :dancer:
+- UC300_5LPT :dancer:
 - UC400ETH
 - UC300_M44
 - UC300ETH_5LPT
@@ -36,7 +36,7 @@ The screen looks best on something that has 16:9 resolution, at least 1300px wid
 - UC300ETH_UB1
 - AXBB
 
-Definition for controllers in bold are tested on real controller. The rest schold just work too.
+Definition for controllers with :dancer: are tested on real controller. The rest schold just work too.
 
 ## Status
 In production for a while already

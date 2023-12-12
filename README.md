@@ -1,5 +1,5 @@
 # UCCNC - Screenset 2046
-Screenset for UCCNC https://cncdrive.com/UCCNC.html initially for the Stepcraft machines like M500, M700, M1000...
+Screenset for UCCNC (up to UCCNC v1.2115) https://cncdrive.com/UCCNC.html initially for the Stepcraft machines like M500, M700, M1000...
 and later for other machines too, at least with UC100 controller or UC300ETH_5LPT and basically all controllers the UCCNC supports.
 
 <img src="run.jpg" />

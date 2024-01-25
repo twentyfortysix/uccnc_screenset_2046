@@ -103,12 +103,11 @@ Although the profile has been tested and looks good, you never know. Be carefull
 (Well nobody complained so far)
 
 ## The screenset is loaded but the UCCNC stays in RESET mode.
-You most likely use the Screenset with my profile. Which is fine in general as you get the coilor setup for free, but you machine might not like my other settings. In that case open your profile go to Configuration > Apearrance > select screenset. Locate the Screenset only. Save that as extra profile just in case. Load the newly created profile. Voala, Your profile has fancy look now.
+You most likely use the Screenset with my profile. Which is fine in general as you get the color setup for free, but you machine might not like my other settings. In that case open your profile go to Configuration > Apearrance > select screenset. Locate the Screenset only. Save that as extra profile just in case. Load the newly created profile. Voala, Your profile has fancy look now.
 
 ## I need to update the Screenset for my and others needs
-In that case make the appropriate changes and make a pull request and will make the cahnge available to others as well.
+In that case make the appropriate changes and make a pull request and will make the change available to others as well.
 Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3731 or somehow ;)
-For now we know that the screenset works for people who has UC100 controller and not for others. I cannot make other as I do no have that hardware setup. If you do and make it work, let me know!
  
  
 ## Goodies

@@ -102,6 +102,9 @@ Run the UCCNC program, go to Configuration > Profiles. Select "Stepcraft_2046" p
 Although the profile has been tested and looks good, you never know. Be carefull and let me know if there is anything that should be fixed, be it wrong event mappings or design flaws. Fire up github issue and be as desriptive as you can, ideally include screenshots with description.
 (Well nobody complained so far)
 
+## The screenset is loaded but the UCCNC stays in RESET mode.
+You most likely use the Screenset with my profile. Which is fine in general as you get the coilor setup for free, but you machine might not like my other settings. In that case open your profile go to Configuration > Apearrance > select screenset. Locate the Screenset only. Save that as extra profile just in case. Load the newly created profile. Voala, Your profile has fancy look now.
+
 ## I need to update the Screenset for my and others needs
 In that case make the appropriate changes and make a pull request and will make the cahnge available to others as well.
 Or send it to me over forum https://www.forum.cncdrive.com/viewtopic.php?f=9&t=3731 or somehow ;)

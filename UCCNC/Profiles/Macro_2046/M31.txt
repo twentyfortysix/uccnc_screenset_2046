@@ -1,0 +1,42 @@
+//M31 probing macro
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+double Zmin = -100; //Max.Z depth
+double FeedrateFast = 300; //Feedrate for probing
+double FeedrateSlow = 40; //Feedrate for probing
+double SafeZ = -2;
+double retractheight = 10; //The retract height
+double retractforsecondmeasurement = 2; 
+double newZ = 32.55; //Height of Tool Length Sensor - Use 32.45 for TS-32(D and M series)  39.21 for TS-39 (Q Series)
+while(exec.IsMoving()){}
+exec.Wait(200);
+
+exec.Code("G31 Z" + Zmin + "F" + FeedrateFast); // Do the Z probing with Fast feedrate first
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G91 G0 Z" + retractforsecondmeasurement);
+while(exec.IsMoving()){}
+exec.Code("G90"); 
+exec.Wait(200);
+exec.Code("G31 Z" + Zmin + "F" + FeedrateSlow); // Do the Z probing again with Slow Feedrate to get a more accurate reading
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.ChangeaxisDROvalue(2, newZ.ToString()); //Change the DRO value 
+exec.Wait(200);  //Safety wait for the UC100 syncronisation
+if(!exec.Ismacrostopped()) // If tool change was not interrupted with a stop only then validate new tool number
+{
+ double Zup = exec.GetZmachpos() + retractheight;
+ if(Zup > SafeZ)
+ {
+   Zup = SafeZ;
+ }
+ exec.Code("G00 G53 Z" + Zup); // Move 10mm above probe plate
+ while(exec.IsMoving()){}
+ exec.Wait(200);
+}
+}

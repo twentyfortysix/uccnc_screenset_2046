@@ -1,0 +1,41 @@
+//Custom position 01
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+
+double posX = 0;
+double posY = 0;
+double posZ = 0;
+double safeZ = -2;
+
+if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58)) // If machine was not homed then it is unsafe to move in machine coordinates, stop here...
+{
+  MessageBox.Show("The machine was not yet homed, home the machine before run to parking position!");
+  exec.Stop();
+  return;
+}
+
+int originalmodalmode = exec.actualmodal; // remember the modal mode
+while(exec.IsMoving()){}
+
+exec.Code("G00 G53 Z"+ safeZ); // Move Z up first to safe Z position
+while(exec.IsMoving()){}
+exec.Code("G00 G53 X" + posX +" Y" + posY); // Move to XYZ custom position
+while(exec.IsMoving()){}
+exec.Code("G00 G53 Z" + posZ); // Move to XYZ custom position
+while(exec.IsMoving()){}
+exec.Code("G" + originalmodalmode); // Set system back to the original distance mode
+return;
+
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  Console.Beep();
+  exec.AddStatusmessage("Macro was interrupted by user!");
+  return;
+}
+}

@@ -1,1 +1,0 @@
-//M30, this code is executed on M30 after program end and file rewind

@@ -1,0 +1,122 @@
+// Internal Circle Macro
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){} 
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("This macro will probe a circle internally and find its center. Place the probe inside the form and drive it down to a height which allows the probe to touch the inner contour.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Move the probe into the form and set a height that allows it to touch the inner contour and execute the macro again.");
+exec.Stop();
+return;
+}
+}
+double diameter = exec.Question("What is the diameter of your inner circle (mm)?");
+exec.Wait(200); 
+exec.Code("M214");
+double AXposit = diameter;				//Positive Axis Movement
+double AXnegat = (diameter * -1);		//Negative Axis Movement
+double Feedrate = 250; 					//Feedrate for probing 
+double newvalzero = 0; 					//The new Z DRO value after probing
+double ballradius = 1;  			 	//Probe ball radius
+double FastFeedrate = 1500;				//Feedrate for moving the probe
+exec.ChangeaxisDROvalue(0, newvalzero.ToString()); 		//Change the DRO value 
+exec.ChangeaxisDROvalue(1, newvalzero.ToString()); 		//Change the DRO value 
+
+// Start probing Y Axis
+
+double Ytemp = exec.GetYmachpos();						//Get original 
+exec.Code("G31 Y" + AXnegat + "F" + Feedrate); 			//Start probing 
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Ypos = exec.GetYmachpos();						//Get Positive 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation
+
+exec.Code("G01 G53 Y" + Ytemp + "F" + FastFeedrate);	//Return to Original
+while(exec.IsMoving()){} 								//Wait while there is motion 
+
+exec.Code("G31 Y" + AXposit + "F" + Feedrate); 			//Start probing 
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Yneg = exec.GetYmachpos();						//Get Positive 
+exec.Wait(200);
+double Ydif = Ypos - Yneg;
+double Ycent = (Yneg + (Ydif / 2));
+
+exec.Code("G01 G53 Y" + Ycent + "F" + FastFeedrate);	//Return to Cent Y
+while(exec.IsMoving()){} 								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+
+// Start probing X Axis
+
+double Xtemp = exec.GetXmachpos();						//Get original X
+exec.Code("G31 X" + AXposit + "F" + Feedrate); 			//Start probing X
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Xpos = exec.GetXmachpos();						//Get Positive X
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation
+
+exec.Code("G01 G53 X" + Xtemp + "F" + FastFeedrate); 	//Return to Original X 
+while(exec.IsMoving()){} 								//Wait while there is motion 
+
+exec.Code("G31 X" + AXnegat + "F" + Feedrate); 			//Start probing X
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Xneg = exec.GetXmachpos();						//Get Negative X
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation
+double Xdif = Xpos - Xneg;
+double Xcent = (Xneg + (Xdif / 2));
+
+exec.Code("G01 G53 X" + Xcent + "F" + FastFeedrate);	//Return to Cent X 
+while(exec.IsMoving()){} 								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+
+// Start probing Y Axis 2nd pass
+
+exec.Code("G31 Y" + AXnegat + "F" + Feedrate); 			//Start probing 
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Ypos02 = exec.GetYmachpos();						//Get Positive 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation
+
+exec.Code("G01 G53 Y" + Ycent + "F" + FastFeedrate);	//Return to Original
+while(exec.IsMoving()){} 								//Wait while there is motion 
+
+exec.Code("G31 Y" + AXposit + "F" + Feedrate); 			//Start probing 
+while(exec.IsMoving()){}								//Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+double Yneg02 = exec.GetYmachpos();						//Get Positive 
+exec.Wait(200);
+double Ydif02 = Ypos02 - Yneg02;
+double Ycent02 = (Yneg02 + (Ydif / 2));
+
+exec.Code("G01 G53 Y" + Ycent02 + "F" + FastFeedrate);	//Return to Cent Y
+while(exec.IsMoving()){} 								//Wait while there is motion 
+exec.Wait(200);  
+
+double Xdiam = Xdif + ballradius + ballradius; 			//Add twice the radius for both sides on X;
+double Ydiam = (Ydif02*-1) + ballradius + ballradius; 	//Add twice the radius for both sides on Y;
+MessageBox.Show("X diameter =" + Xdiam + " Y diameter =" + Ydiam);
+MessageBox.Show("Center = X:" + Xcent + " Y:" + Ycent02);
+
+if(!exec.Ismacrostopped())
+{
+exec.Wait(200); 
+exec.ChangeaxisDROvalue(0, newvalzero.ToString()); 		//Change the DRO value 
+exec.ChangeaxisDROvalue(1, newvalzero.ToString()); 		//Change the DRO value 
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user or the probe is touching the material while positioning!");
+}
+}

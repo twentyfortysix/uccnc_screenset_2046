@@ -1,0 +1,49 @@
+// Manual ATC Open-Close by Hugo Neil
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){
+exec.Stopspin();
+while(exec.IsMoving()){}
+int Chuckopenport = 1;
+int Chuckopenpin = 14;
+int Currenttool = exec.Getcurrenttool();
+DialogResult result;
+result = MessageBox.Show("This Macro activates the ATC manual release/close. Make sure the machine and spindle are at full stop! To avoid Z offset errors, the tool number will be set to zero.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Macro interrupted by user!");
+exec.Stop();
+return;
+}
+if (result == System.Windows.Forms.DialogResult.OK){
+if(!exec.GetLED(14)){
+  if(!exec.Ismacrostopped()){
+  exec.AddStatusmessage( "Opening ATC" );
+  exec.Setoutpin(Chuckopenport, Chuckopenpin); // Open the chuck with pneumatic valve
+  AS3.Switchbutton(true, 20206);
+  exec.Wait(100);
+  exec.Setcurrenttool(0);
+  exec.Stop();
+  return;
+}
+
+}
+if(exec.GetLED(14)){
+  if(!exec.Ismacrostopped()){
+  exec.AddStatusmessage( "Closing ATC" );
+  exec.Clroutpin(Chuckopenport, Chuckopenpin); // Open the chuck with pneumatic valve
+  AS3.Switchbutton(false, 20206);
+  exec.Wait(100);
+  exec.Setcurrenttool(0);
+  exec.Stop();
+  return;
+}
+}
+}
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  Console.Beep();
+  exec.AddStatusmessage("Macro was interrupted by user!");
+  return;
+}
+}

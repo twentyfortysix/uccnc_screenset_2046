@@ -1,0 +1,144 @@
+// Angle adjustment Macro
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){}
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("This macro will calculate the angle of a slanted worpiece, using G68. The internal coordinate system will be rotated accordingly, enabling automatic angle compensation for straight paths. Be sure to set the workpiece zero points for X,Y and Z at the starting point of the measurement, before continuing the macro! The probe will be moved along the selected axis and take two measurements within from eachother with the distance you enter on the next dialog. Leave enough clearance to allow for this movement!!.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Move the probe and execute the macro again");
+exec.Stop();
+return;
+}
+}
+double distance = exec.Question("Enter the distance you like to use to test the angle (mm)?");
+exec.Code("M214");
+exec.Code("G69"); 
+double Xoriginalpos = exec.GetXmachpos();
+double Yoriginalpos = exec.GetYmachpos();
+double axismovpositive = 100; 		//Max Axis + Movement
+double axismovnegative = -100; 		//Max Axis - Movement
+double probedistanceY = distance * (-1); //Diatance for the second point probe
+double probedistanceX = distance;        //Diatance for the second point probe
+double Feedrate = 250; 				//Feedrate for probing
+double FastFeedrate = 1500;			//Feedrate for moving the probe
+double retract = 25;				//Safe movement probe value
+double retprob = 5;					//Safe movement probe value
+double newvalpositive = 1; 			//The new X DRO value after probing (ball radius)
+double newvalnegative = -1; 		//The new Y DRO value after probing (ball radius)
+string axistoprobe = exec.TextQuestion("Align the toolpath on which axis: X or Y ?");
+
+// Probing along Y axis
+if((axistoprobe == ""))
+{
+MessageBox.Show("Please enter X or Y axis to chose the axis which is to be aligned.");
+exec.Stop();
+return;
+}
+
+if((axistoprobe == "y")||(axistoprobe == "Y"))
+{
+exec.AddStatusmessage("Probing First Point...");
+exec.Code("G31 X" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+double X1touch = exec.GetXmachpos();
+double Y1touch = exec.GetYmachpos();
+
+exec.Code("G01 G53 X" + Xoriginalpos + "Y" + Yoriginalpos + "F" + FastFeedrate); // return to origin
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){}
+exec.Code("G01 Y" + probedistanceY + "F" + FastFeedrate);                         // move for second probing
+while(exec.IsMoving()){}
+exec.Code("M214");
+
+exec.AddStatusmessage("Probing Second Point...");
+exec.Code("G31 X" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+double X2touch = exec.GetXmachpos();
+double Y2touch = exec.GetYmachpos();
+
+exec.Code("G01 G53 X" + Xoriginalpos + "Y" + Yoriginalpos+ "F" + FastFeedrate); // return to origin
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){}
+exec.Code("M214");
+
+double Xdist = X2touch-X1touch;					
+double Ydist = Y1touch-Y2touch;	
+double Radians = Math.Atan(Xdist/Ydist); 
+double Angle = Radians * (180/Math.PI);
+exec.AddStatusmessage("Angle: "+Angle);
+exec.AddStatusmessage("Pivot point set to X0 and Y0");
+exec.Code("G68 X0 Y0 R" + Angle + "F" + Feedrate); 
+if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  MessageBox.Show("Macro interrupted by user!");
+  return;
+}
+}
+if((axistoprobe == "x")||(axistoprobe == "X"))
+{
+exec.AddStatusmessage("Probing First Point...");
+exec.Code("G31 Y" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+double X1touch = exec.GetXmachpos();
+double Y1touch = exec.GetYmachpos();
+
+exec.Code("G01 G53 X" + Xoriginalpos + "Y" + Yoriginalpos + "F" + FastFeedrate); // return to origin
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){}
+exec.Code("G01 X" + probedistanceX);                         // move for second probing
+while(exec.IsMoving()){}
+exec.Code("M214");
+
+exec.AddStatusmessage("Probing Second Point...");
+exec.Code("G31 Y" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+double X2touch = exec.GetXmachpos();
+double Y2touch = exec.GetYmachpos();
+
+exec.Code("G01 G53 X" + Xoriginalpos + "Y" + Yoriginalpos + "F" + FastFeedrate); // return to origin
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){}
+exec.Code("M214");
+
+double Xdist = X2touch-X1touch;					
+double Ydist = Y2touch-Y1touch;	
+double Radians = Math.Atan(Ydist/Xdist); 
+double Angle = Radians * (180/Math.PI);
+exec.AddStatusmessage("Angle: "+Angle);
+exec.AddStatusmessage("Pivot point set to X0 and Y0");
+exec.Code("G68 X0 Y0 R" + Angle + "F" + Feedrate); 
+  if(exec.Ismacrostopped()) // STEPCRAFT interruption
+{
+  exec.StopWithDeccel();
+  MessageBox.Show("Macro was interrupted by user!");
+  return;
+}
+}
+if(!exec.Ismacrostopped())
+{
+exec.Wait(200);
+exec.AddStatusmessage("Adjustment to the axis done.");
+exec.Code("M214");
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user or the probe is touching the material while positioning!");
+exec.Code("M214");
+}
+}

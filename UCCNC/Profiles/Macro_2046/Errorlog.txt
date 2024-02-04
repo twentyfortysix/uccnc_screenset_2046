@@ -1,0 +1,13 @@
+UCCNC macro compiler error log file
+--------------------------------------
+Last error dated: 4/13/2022 3:12:21 PM
+In macro: M20461
+--------------------------------------
+CS0103 | in line: 86 | error text: The name 'Xsafe' does not exist in the current context
+CS0103 | in line: 91 | error text: The name 'Zsafe' does not exist in the current context
+CS0103 | in line: 94 | error text: The name 'Xorigin' does not exist in the current context
+CS0103 | in line: 97 | error text: The name 'Ysafe' does not exist in the current context
+CS0103 | in line: 100 | error text: The name 'Zprobe' does not exist in the current context
+CS0103 | in line: 116 | error text: The name 'Ysafe' does not exist in the current context
+CS0103 | in line: 121 | error text: The name 'Zsafe' does not exist in the current context
+--------------------------------------

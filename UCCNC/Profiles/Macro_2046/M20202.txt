@@ -1,0 +1,91 @@
+// 3D probe height measurement
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){} 								// Wait while there is motion 
+
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("Manually (or using the TLS macro) zero your Z height in the desired position, before executing this macro. This function compensates the difference in length between a 3D-Probe and an end-mill. The compensation can be applied to reuse a zero point with an endmill, which originally was found with a 3D-Probe. This allows you to find zero points in areas a tool length sensor cannot reach – like in a slot.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Correct the positions and execute the macro again");
+exec.Stop();
+return;
+}
+}
+
+double Zmin = -100; //Max.Z depth
+double FeedrateFast = 300; //Feedrate for probing
+double FeedrateSlow = 40; //Feedrate for probing
+double SafeZ = 100;
+double Retractheight = 30; //The retract height
+double Retractprobe = 60; //The retract height
+double Retractforsecondmeasurement = 2; 
+double sensorZ = 32.45; //height of the sensor
+double probeZpush = .02; //3DProbe Z push distance
+exec.Code("G31 Z" + Zmin + "F" + FeedrateFast); 		// Do the Z probing with Fast feedrate first
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G91 G0 Z" + Retractforsecondmeasurement);
+while(exec.IsMoving()){}
+exec.Code("G90");
+exec.Wait(200);  
+exec.Code("G31 Z" + Zmin + "F" + FeedrateSlow); 		// Do the Z probing again with Slow Feedrate to get a more accurate reading
+while(exec.IsMoving()){}
+exec.Wait(200);
+// double ZrelativeT1 = exec.GetZpos();
+double ZabsoluteT1 = (exec.GetZmachpos())-(probeZpush);
+// double ZzeroT1 = ZabsoluteT1-ZrelativeT1;
+exec.Code("G91 G0 Z" + Retractprobe);
+while(exec.IsMoving()){}
+exec.Code("G90"); 
+DialogResult result2;
+result2 = MessageBox.Show("Remove the 3D-Probe and replace it with the Spindle, place the tool length sensor below the endmill and press OK to continue.", "Important!" , MessageBoxButtons.OKCancel);
+if (result2 == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Macro interrupted by user!");
+exec.Stop();
+return;
+}
+exec.Code("G31 Z" + Zmin + "F" + FeedrateFast); 		// Do the Z probing with Fast feedrate first
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G91 G0 Z" + Retractforsecondmeasurement);
+while(exec.IsMoving()){} 
+exec.Code("G90");
+exec.Wait(200);  
+exec.Code("G31 Z" + Zmin + "F" + FeedrateSlow); 		// Do the Z probing again with Slow Feedrate to get a more accurate reading
+while(exec.IsMoving()){}
+exec.Wait(200);
+// double ZrelativeT2 = exec.GetZpos();
+double ZabsoluteT2 = (exec.GetZmachpos())-(sensorZ);
+// double ZzeroT2 = ZabsoluteT2-ZrelativeT2;
+exec.Code("G91 G0 Z" + Retractheight);
+while(exec.IsMoving()){} 
+exec.Code("G90"); 
+// double ZabsoluteT1positive=ZabsoluteT1*(-1);
+// double ZabsoluteT2positive=ZabsoluteT2*(-1);
+double Zdistance=ZabsoluteT1-ZabsoluteT2;
+double TempZpos = (exec.GetZpos())+Zdistance;
+AS3.Setfield(TempZpos, 228); 
+AS3.Validatefield(228);
+if(!exec.Ismacrostopped())
+{
+
+exec.Wait(200); 
+MessageBox.Show("The previously set Z zero is now adjusted to the endmill.");
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user!");
+}
+}

@@ -1,3 +1,0 @@
-exec.Code("M41");
-
-MessageBox.Show("Digitizing stopped. File saved as previously set");

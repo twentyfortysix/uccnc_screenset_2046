@@ -1,0 +1,135 @@
+// Macros for use the 3D probe with Stepcraft by Hugo Neil
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){} 								// Wait while there is motion 
+
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("This macro will probe and zero the Z height and the lower right corner of the material. Make sure to place the probe 15 mm or less from the edges of the corner and above the workpiece.", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Move the probe and execute the macro again");
+exec.Stop();
+return;
+}
+}
+exec.Code("M214");
+exec.Wait(200); 
+double axismovpositive = 50; 		//Max Axis + Movement
+double axismovnegative = -50; 		//Max Axis - Movement
+double Feedrate = 250; 				//Feedrate for probing
+double FastFeedrate = 1500;			//Feedrate for moving the probe
+double retract = 25;				//Safe movement probe value
+double retprob = 5;					//Safe movement probe value
+double zdownadd = 3;				//Z add value for proving
+double newvalzero = 0; 				//The new Z DRO value after probing
+double newvalpositive = 1; 			//The new X DRO value after probing (ball radius)
+double newvalnegative = -1; 		//The new Y DRO value after probing (ball radius)
+exec.ChangeaxisDROvalue(0, newvalzero.ToString()); 		//Change the DRO value 
+exec.ChangeaxisDROvalue(1, newvalzero.ToString()); 		//Change the DRO value 
+exec.ChangeaxisDROvalue(2, newvalzero.ToString()); 		//Change the DRO value 
+
+// Start probing Z Axis
+
+exec.Code("G31 Z" + axismovnegative + "F" + Feedrate); 	// Start probing 
+while(exec.IsMoving()){} 								// Wait while there is motion 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation 
+exec.ChangeaxisDROvalue(2, newvalzero.ToString()); 		//Change the DRO value 
+exec.Wait(200);  										//Safety wait for the UC100 syncronisation
+
+double Zorigin = exec.GetZmachpos();					//Calculate Zero for Z 
+double Zsafe = Zorigin + retprob;						//Calculate new temp (up) value for Z 
+double Zprobe = Zorigin - zdownadd;						//Calculate new temp (low) value for Z for probing
+double Xorigin = exec.GetXmachpos();					//Read X
+double Xsafe = Xorigin + retract;						//Calculate move for X (clear)
+double Yorigin = exec.GetYmachpos();					//Read Y
+double Ysafe = Yorigin - retract;						//Calculate move for Y (clear)
+
+exec.Code("G01 G53 Z" + Zsafe + "F" + FastFeedrate);	//Retract the axis 
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){} 
+exec.Wait(200);
+exec.Code("G01 G53 X" + Xsafe + "F" + FastFeedrate);	//move axis (clear material)
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G01 G53 Z" + Zprobe + "F" + FastFeedrate);	//move Zaxis to next probe position
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("M214");
+
+// Start probing X Axis
+
+exec.Code("G31 X" + axismovnegative + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+exec.Wait(200);  											//Safety wait for the UC100 syncronisation 
+exec.ChangeaxisDROvalue(0, newvalpositive.ToString()); 		//Change the DRO value 
+exec.Wait(200);  											//Safety wait for the UC100 syncronisation
+
+double Xtouch = exec.GetXmachpos();							//Read Zero for X
+double Xzero = Xtouch + newvalnegative;						//Calculate Zero for X
+
+exec.Code("G01 G53 X" + Xsafe + "F" + FastFeedrate);		//Retract the axis 
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){} 
+exec.Wait(200);
+exec.Code("G01 G53 Z" + Zsafe + "F" + FastFeedrate);		//Retract the axis 
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G01 G53 X" + Xorigin + "F" + FastFeedrate);		//Retract the axis 
+while(exec.IsMoving()){} 
+exec.Wait(200);
+exec.Code("G01 G53 Y" + Ysafe + "F" + FastFeedrate);		//move axis (clear material)
+while(exec.IsMoving()){} 
+exec.Wait(200);
+exec.Code("G01 G53 Z" + Zprobe + "F" + FastFeedrate);		//move Zaxis to next probe position
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("M214");
+
+// Start probing Y Axis
+
+exec.Code("G31 Y" + axismovpositive + "F" + Feedrate); 		//Start probing
+while(exec.IsMoving()){}									//Wait while there is motion 
+exec.Wait(200); 
+exec.ChangeaxisDROvalue(1, newvalnegative.ToString()); 		//Change the DRO value 
+exec.Wait(200);  
+
+double Ytouch = exec.GetYmachpos();							//Read Zero for Y
+double Yzero = Ytouch + newvalpositive;						//Calculate Zero for Y
+
+exec.Code("G01 G53 Y" + Ysafe + "F" + FastFeedrate);		//Retract the axis 
+exec.Wait(800);
+exec.Code("M213");
+while(exec.IsMoving()){} 
+exec.Wait(200);
+exec.Code("G01 G53 Z" + Zsafe + "F" + FastFeedrate);		//Retract the axis 
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("G01 X0 Y0 Z1" + "F" + FastFeedrate);				//Retract the axis 
+while(exec.IsMoving()){}
+exec.Wait(200);
+exec.Code("M214");
+
+if(!exec.Ismacrostopped())
+{
+exec.Wait(200); 
+MessageBox.Show("Probing done. Check the machine coordinates to get the coordinates of the corner. Remember the 1 mm offset in Z direction!");
+exec.Code("M214");
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user or the probe is touching the material while positioning!");
+exec.Code("M214");
+}
+}

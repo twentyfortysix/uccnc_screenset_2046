@@ -1,0 +1,37 @@
+// ATC toolchanger Macro
+// V1.1 - Oct-21 - Hugo Neil
+string ifai=AS3.Getfield(27242);double move=Convert.ToDouble(ifai);if(move==55){if(!exec.GetLED(56)||!exec.GetLED(57)||!exec.GetLED(58))
+{
+MessageBox.Show("The machine has not yet been homed, HOME before executing!");
+exec.Stop();
+return;
+}
+while(exec.IsMoving()){}
+if (!AS3.Getcheckboxstate(600))
+{
+DialogResult result;
+result = MessageBox.Show("This Macro allows you to change your ATC tool by number", "Important!" , MessageBoxButtons.OKCancel);
+if (result == System.Windows.Forms.DialogResult.Cancel)
+{
+MessageBox.Show("Correct the positions and execute the macro again");
+exec.Stop();
+return;
+}
+}
+double tool = exec.Question("What is the number of the tool you want to change to?");
+exec.Code("M6T"+tool);
+while(exec.IsMoving()){}
+exec.Wait(200);
+if(!exec.Ismacrostopped())
+{
+exec.Wait(200); 
+MessageBox.Show("New tool "+tool+" is ready.");
+}
+else
+{
+exec.StopWithDeccel();
+exec.Wait(200); 
+Console.Beep();
+exec.AddStatusmessage("Macro interrupted by user!");
+}
+}

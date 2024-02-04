@@ -68,7 +68,7 @@ The Screenset uses Calibri font along the default Arial. If you are on old Windb
 The 3D colors and Gcode colors are not part of the screenset, it is part of the profile *.pro
 You can either use my profiles you find as a part of this repository
 C:\UCCNC\Profiles\Stepcraft_2046.pro
-or you can just substitute the Appeareance part in your pofile Profiles/*.pro be following code
+or you can just substitute the Appeareance part in your pofile Profiles/*.pro by the following code
 
 
 ```

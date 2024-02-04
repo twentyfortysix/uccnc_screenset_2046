@@ -7,7 +7,7 @@ The Actual Screenset release "2046 v0.05" for v1.2116 is much more user friendly
 
 <img src="run.png" /><img src="toolpath.png" />
 
-# If you need the previous release Screenset_2046
+## Looking for the previous "Screenset_2046" release 
 get the release from https://github.com/twentyfortysix/uccnc_screenset_2046/tree/0.04
 
 

@@ -4,6 +4,9 @@ and later for other machines too, all controllers the UCCNC supports.
 
 The Actual Screenset release "2046 v0.05" for v1.2116 is much more user friendly but lack the tools > probe UI tab design. If you know you need that stay with the previous release and UCCNC up to v1.2115, the probe screen there is bit more tidy. Or if you want to progress further consider donation or make the adjustments and pull the update back to me.
 
+# If you need the previous release Screenset_2046
+https://github.com/twentyfortysix/uccnc_screenset_2046/tree/0.04
+
 <img src="run.png" />
 <img src="toolpath.png" />
 
@@ -14,7 +17,7 @@ Because the native UI (screenset) is a mess.
 The default Screenset just does not follow any UI standarts other than that buttons look like buttons, it is not optimized for touch screens whatsoever most importantly the layout and UI is so clumsy that forces us to stop and think, while we should act already.
 Don't take me wrong the UCCNC program it self is a solid program that does its work well, but it must be comfortably controlable too or the bits will break or my brain explodes.
 
-The 2046 screenset is equal in function to what the Stepcraft_M700 in my case is, but redesigned in a way that is more responsive on touch screens, way more readable, uses common UX logic and in general it is cleaner.
+The 2046 screenset is equal in function to what used to be the Stepcraft_M700 in my case is, but redesigned in a way that is more responsive on touch screens, way more readable, uses common UX logic and in general it is cleaner.
 Sure not all parts of the program are redesigned, only those that we come in touch the most. 
 
 - RUN
@@ -52,11 +55,9 @@ C:\UCCNC\Flashscreen\BMP\Stepcraft_2046
 C:\UCCNC\Screens\Stepcraft_2046.ssf
 ```
 
-The macros are the default macros. No change there.
 
 B. upload and profile adjustment
-- Copy uccnc_screenset_2046\UCCNC\Screens\2046.ssf to C:\UCCNC\Screens\
-- Copy the uccnc_screenset_2046\UCCNC\Flashscreen\BMP\2046 folder to C:\UCCNC\Flashscreen\BMP\
+- same like in A.
 - Edit C:\UCCNC\Profiles\Default.pro (your profile file may vary) and change the mainscreenfilename entry as follows:
 mainscreenfilename=2046
 

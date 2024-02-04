@@ -4,14 +4,14 @@ and later for other machines too, all controllers the UCCNC supports.
 
 The Actual Screenset release "2046 v0.05" for v1.2116 is much more user friendly but lack the tools > probe UI tab design. If you know you need that stay with the previous release and UCCNC up to v1.2115, the probe screen there is bit more tidy. Or if you want to progress further consider donation or make the adjustments and pull the update back to me.
 
+
+<img src="run.png" /><img src="toolpath.png" />
+
 # If you need the previous release Screenset_2046
-https://github.com/twentyfortysix/uccnc_screenset_2046/tree/0.04
-
-<img src="run.png" />
-<img src="toolpath.png" />
+get the release from https://github.com/twentyfortysix/uccnc_screenset_2046/tree/0.04
 
 
-## Why
+## Why do I put so much effort to make another screenset?
 Because the native UI (screenset) is a mess.
 
 The default Screenset just does not follow any UI standarts other than that buttons look like buttons, it is not optimized for touch screens whatsoever most importantly the layout and UI is so clumsy that forces us to stop and think, while we should act already.

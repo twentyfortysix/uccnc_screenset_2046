@@ -10,6 +10,8 @@ The Actual Screenset release "2046 v0.05" for v1.2116 is much more user friendly
 ## Looking for the previous "Screenset_2046" release 
 get the release from https://github.com/twentyfortysix/uccnc_screenset_2046/tree/0.04
 
+## Get the UCCNC v1.2116
+https://www.cncdrive.com/UCCNC/setup_1.2116.exe
 
 ## Why do I put so much effort to make another screenset?
 Because the native UI (screenset) is a mess.

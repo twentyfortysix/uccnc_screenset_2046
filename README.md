@@ -53,8 +53,8 @@ In production for a while already
 A. upload and set the screenset in UCCNC program
 The package follows the default UCCNC folder paths. Unpack the files to coresponding folders.
 ```
-C:\UCCNC\Flashscreen\BMP\Stepcraft_2046
-C:\UCCNC\Screens\Stepcraft_2046.ssf
+C:\UCCNC\Flashscreen\BMP\2046
+C:\UCCNC\Screens\2046.ssf
 ```
 
 
@@ -69,7 +69,7 @@ The Screenset uses Calibri font along the default Arial. If you are on old Windb
 ### 3D view & Gcode colors
 The 3D colors and Gcode colors are not part of the screenset, it is part of the profile *.pro
 You can either use my profiles you find as a part of this repository
-C:\UCCNC\Profiles\Stepcraft_2046.pro
+C:\UCCNC\Profiles\2046.pro
 or you can just substitute the Appeareance part in your pofile Profiles/*.pro by the following code
 
 

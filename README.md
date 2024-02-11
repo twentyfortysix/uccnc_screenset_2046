@@ -52,6 +52,7 @@ In production for a while already
 
 A. upload and set the screenset in UCCNC program
 The package follows the default UCCNC folder paths. Unpack the files to coresponding folders.
+Select the screenset in the UCCNC program and save your profile.
 ```
 C:\UCCNC\Flashscreen\BMP\2046
 C:\UCCNC\Screens\2046.ssf

@@ -6944,7 +6944,8 @@ AS3.Addfill(-8355712, 30, 54, 878, 700, 0.35, 2, 12);
 mainform.exec.Loadimages = false;
 mainform.exec.Loadjogscreen = false;
 mainform.exec.Loadmainscreen = false;
-}//ENDREGION UC400ETH
+}
+//ENDREGION UC400ETH
 
 //REGION UC300_5LPT
 if (mainform.userselecteddevtype == UC100.DeviceType.UC300_5LPT || mainform.userselecteddevtype == UC100.DeviceType.Demo_UC300_5LPT)

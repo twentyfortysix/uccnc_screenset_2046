@@ -190,7 +190,7 @@ AS3.Loadpicture("BMP/2046/pzero_off.png", "BMP/2046/pzero_on.png",178, false);
 AS3.Loadpicture("BMP/2046/m6_off.png", "BMP/2046/m6_on.png",179, false);
 AS3.Loadpicture("BMP/2046/offsets_off.png", "BMP/2046/offsets_on.png",180, false);
 AS3.Loadpicture("BMP/2046/m1_off.png", "BMP/2046/m1_on.png",181, false);
-AS3.Loadpicture("BMP/2046/m2_off.png", "BMP/2046/m3_on.png",182, false);
+AS3.Loadpicture("BMP/2046/m2_off.png", "BMP/2046/m2_on.png",182, false);
 AS3.Loadpicture("BMP/2046/m3_off.png", "BMP/2046/m3_on.png",183, false);
 AS3.Loadpicture("BMP/2046/m4_off.png", "BMP/2046/m4_on.png",184, false);
 AS3.Loadpicture("BMP/2046/m5_off.png", "BMP/2046/m5_on.png",185, false);
